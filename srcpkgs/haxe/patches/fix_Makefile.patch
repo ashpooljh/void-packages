@@ -1,0 +1,30 @@
+diff --git Makefile Makefile
+index 294302820..5cb3a152f 100644
+--- Makefile
++++ Makefile
+@@ -10,7 +10,7 @@
+ #
+ .SUFFIXES : .ml .mli .cmo .cmi .cmx .mly
+ 
+-INSTALL_DIR=/usr/local
++INSTALL_DIR=/usr
+ INSTALL_BIN_DIR=$(INSTALL_DIR)/bin
+ INSTALL_LIB_DIR=$(INSTALL_DIR)/lib/haxe
+ INSTALL_STD_DIR=$(INSTALL_DIR)/share/haxe/std
+@@ -47,14 +47,8 @@ endif
+ ADD_REVISION?=0
+ 
+ BRANCH=$(shell echo $$APPVEYOR_REPO_NAME | grep -q /haxe && echo $$APPVEYOR_REPO_BRANCH || echo $$TRAVIS_REPO_SLUG | grep -q /haxe && echo $$TRAVIS_BRANCH || git rev-parse --abbrev-ref HEAD)
+-COMMIT_SHA=$(shell git rev-parse --short HEAD)
+-COMMIT_DATE=$(shell \
+-	if [ "$$(uname)" = "Darwin" ]; then \
+-		date -u -r $$(git show -s --format=%ct HEAD) +%Y%m%d%H%M%S; \
+-	else \
+-		date -u -d @$$(git show -s --format=%ct HEAD) +%Y%m%d%H%M%S; \
+-	fi \
+-)
++COMMIT_SHA=${_void_haxe_commit_sha}
++COMMIT_DATE=${_void_haxe_commit_date}
+ PACKAGE_FILE_NAME=haxe_$(COMMIT_DATE)_$(COMMIT_SHA)
+ HAXE_VERSION=$(shell $(CURDIR)/$(HAXE_OUTPUT) -version 2>&1 | awk '{print $$1;}')
+ HAXE_VERSION_SHORT=$(shell echo "$(HAXE_VERSION)" | grep -oE "^[0-9]+\.[0-9]+\.[0-9]+")

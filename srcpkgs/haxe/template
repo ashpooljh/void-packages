@@ -1,0 +1,49 @@
+# Template file for 'haxe'
+pkgname=haxe
+version=4.1.4
+_haxelib_commit=4b27f91d8a4ff279d9903091680fee2c93a0d574
+_hx3compat_commit=f1f18201e5c0479cb5adf5f6028788b37f37b730
+revision=1
+build_style=gnu-makefile
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="tar m4 rsync ocaml opam neko perl pkg-config"
+makedepends="pcre-devel zlib-devel mbedtls-devel"
+depends=""
+short_desc="High-level cross-platform programming language"
+maintainer="Artem Zhurikhin <ashpool@xecut.net>"
+license="GPL-2.0-or-later"
+homepage="https://haxe.org/"
+distfiles="https://github.com/HaxeFoundation/haxe/archive/${version}.tar.gz
+ https://github.com/HaxeFoundation/haxelib/archive/${_haxelib_commit}.zip
+ https://github.com/HaxeFoundation/hx3compat/archive/${_hx3compat_commit}.zip"
+checksum="832b2160a42f92b0772b6bb0bb31e5be1c05dbe9853a3f9477ea4aa55426bf58
+ 72c516ebc16b466a1a5025b7e5a5ab17add1b80cc6acd7d0426e59c84c1ed634
+ eab65433200eb99809ce6282b823319f53a22132373d3e284e0d678774a04bfa"
+
+# git rev-parse --short HEAD
+# date -u -d @$(git show -s --format=%ct HEAD) +%Y%m%d%H%M%S;
+_void_haxe_commit_sha=68167fd68
+_void_haxe_commit_date=20201105174730
+
+pre_configure() {
+	# link submodules into place
+	rm -rf extra/haxelib_src
+	ln -v -s ${XBPS_BUILDDIR}/haxelib-${_haxelib_commit} extra/haxelib_src
+
+	rm -rf extra/haxelib_src/hx3compat
+	ln -v -s ${XBPS_BUILDDIR}/hx3compat-${_hx3compat_commit} extra/haxelib_src/hx3compat
+
+	# initialize OPAM and install dependencies
+	OPAMNO=1 opam init --disable-sandboxing
+	eval $(opam env)
+	opam pin add haxe . --kind=path --no-action
+	OPAMYES=1 opam install haxe --deps-only
+}
+
+pre_build() {
+	eval $(opam env)
+}
