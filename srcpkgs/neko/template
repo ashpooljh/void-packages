@@ -6,10 +6,13 @@ wrksrc="${pkgname}-${version//./-}"
 build_style=cmake
 hostmakedepends="pkg-config git"
 makedepends="gc-devel libressl-devel pcre-devel zlib-devel apache-devel apr-devel libmariadbclient-devel sqlite-devel mbedtls-devel gtk+-devel"
-depends=""
 short_desc="Haxe Foundation virtual machine"
 maintainer="Artem Zhurikhin <ashpool@xecut.net>"
 license="MIT"
 homepage="https://nekovm.org"
 distfiles="https://github.com/HaxeFoundation/neko/archive/v${version//./-}.tar.gz"
 checksum=850e7e317bdaf24ed652efeff89c1cb21380ca19f20e68a296c84f6bad4ee995
+
+post_install() {
+	vlicense LICENSE
+}
