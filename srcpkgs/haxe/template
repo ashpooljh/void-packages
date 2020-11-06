@@ -2,12 +2,13 @@
 pkgname=haxe
 version=4.1.4
 revision=1
+archs="x86_64* i686*"
 _haxelib_commit=4b27f91d8a4ff279d9903091680fee2c93a0d574
 _hx3compat_commit=f1f18201e5c0479cb5adf5f6028788b37f37b730
 build_style=gnu-makefile
 hostmakedepends="tar m4 rsync ocaml opam neko perl pkg-config"
 makedepends="pcre-devel zlib-devel mbedtls-devel"
-short_desc="High-level cross-platform programming language"
+short_desc="Haxe programming language"
 maintainer="Artem Zhurikhin <ashpool@xecut.net>"
 license="GPL-2.0-or-later"
 homepage="https://haxe.org/"
@@ -27,7 +28,6 @@ pre_configure() {
 	# link submodules into place
 	rm -rf extra/haxelib_src
 	ln -v -s ${XBPS_BUILDDIR}/haxelib-${_haxelib_commit} extra/haxelib_src
-
 	rm -rf extra/haxelib_src/hx3compat
 	ln -v -s ${XBPS_BUILDDIR}/hx3compat-${_hx3compat_commit} extra/haxelib_src/hx3compat
 
