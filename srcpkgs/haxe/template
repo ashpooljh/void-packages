@@ -1,18 +1,12 @@
 # Template file for 'haxe'
 pkgname=haxe
 version=4.1.4
+revision=1
 _haxelib_commit=4b27f91d8a4ff279d9903091680fee2c93a0d574
 _hx3compat_commit=f1f18201e5c0479cb5adf5f6028788b37f37b730
-revision=1
 build_style=gnu-makefile
-#configure_args=""
-#make_build_args=""
-#make_install_args=""
-#conf_files=""
-#make_dirs="/var/log/dir 0755 root root"
 hostmakedepends="tar m4 rsync ocaml opam neko perl pkg-config"
 makedepends="pcre-devel zlib-devel mbedtls-devel"
-depends=""
 short_desc="High-level cross-platform programming language"
 maintainer="Artem Zhurikhin <ashpool@xecut.net>"
 license="GPL-2.0-or-later"
