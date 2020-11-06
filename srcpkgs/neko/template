@@ -2,6 +2,7 @@
 pkgname=neko
 version=2.3.0
 revision=1
+archs="x86_64* i686*"
 wrksrc="${pkgname}-${version//./-}"
 build_style=cmake
 hostmakedepends="pkg-config git"
